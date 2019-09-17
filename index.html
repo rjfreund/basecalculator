@@ -14,26 +14,24 @@
 </style>
 <body>
     <div>
-        <div>
-            <p>Binary to Decimal</p>
-            <input id="binaryToDecimalInput" type="text" placeholder="binary input"/>
-            <input id="binaryToDecimalOutput" disabled placeholder="decimal output"/>            
-            <button id="binaryToDecimalCalcBtn">calculate</button>
-            <table id="binaryToDecimalTable" name='binaryToDecimalTable'>
-                <thead>
-                    <tr>
-                        <th class='operand'>Operand</th><th class='operation'>Operation</th><th class='baseAndPower'>Base ^ power</th><th class='result'>Result</th><th class='sumTotal'>Sum Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-            <pre id='codeDisplay'></pre>
-        </div>
+        <p>Binary to Decimal</p>
+        <input id="binaryToDecimalInput" type="text" placeholder="binary input"/>
+        <input id="binaryToDecimalOutput" disabled placeholder="decimal output"/>            
+        <button id="binaryToDecimalCalcBtn">calculate</button>
+        <table id="binaryToDecimalTable" name='binaryToDecimalTable'>
+            <thead>
+                <tr>
+                    <th class='operand'>Operand</th><th class='operation'>Operation</th><th class='baseAndPower'>Base ^ power</th><th class='result'>Result</th><th class='sumTotal'>Sum Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <pre id='codeDisplay'></pre>
     </div>
 </body>
 <script id='code'>
-    //document.getElementById('codeDisplay').innerHTML = document.getElementsByTagName('script').namedItem('code').innerHTML;
+    document.getElementById('codeDisplay').innerHTML = document.getElementsByTagName('script').namedItem('code').innerHTML;
 
     var binaryToDecimalInput = document.getElementById('binaryToDecimalInput');
     var binaryToDecimalOutput = document.getElementById('binaryToDecimalOutput');
