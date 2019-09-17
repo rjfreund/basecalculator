@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Base Calculator</title>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<body>
+    <div>
+        <div>
+            <p>Binary to Decimal</p>
+            <input id="binaryToDecimalInput" type="text" placeholder="binary input"/>
+            <input id="binaryToDecimalOutput" disabled placeholder="decimal output"/>            
+            <button id="binaryToDecimalCalcBtn">calculate</button>
+            <table id="binaryToDecimalTable" name='binaryToDecimalTable'>
+                <thead>
+                    <tr>
+                        <th class='operand'>Operand</th><th class='operation'>Operation</th><th class='baseAndPower'>Base ^ power</th><th class='result'>Result</th><th class='sumTotal'>Sum Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <pre id='codeDisplay'></pre>
+        </div>
+    </div>
+</body>
+<script id='code'>
+    document.getElementById('codeDisplay').innerHTML = document.getElementsByTagName('script').namedItem('code').innerHTML;
+
+    var binaryToDecimalInput = document.getElementById('binaryToDecimalInput');
+    var binaryToDecimalOutput = document.getElementById('binaryToDecimalOutput');
+    var binaryToDecimalCalcBtn = document.getElementById('binaryToDecimalCalcBtn');
+    var binaryToDecimalTable = document.getElementById('binaryToDecimalTable');
+    var binaryToDecimalTableHeaderClasses = Array.from(binaryToDecimalTable.tHead.rows[0].cells).map(function(cell){ return cell.className; });
+
+    binaryToDecimalCalcBtn.onclick = function(){
+        binaryToDecimalOutput.value = calcBinaryToDecimal(binaryToDecimalInput.value); 
+    };
+    function calcBinaryToDecimal(binaryInputString){
+        var validInput = (binaryInputString.length > 0) &&
+            binaryInputString
+            .split('')
+            .every(function(value){
+                return (value === '1') || (value === '0'); 
+            });
+        if (!validInput){ return 'input must be 1s and 0s'; }
+        var binaryInputArray = binaryInputString
+            .split('')
+            .reverse()
+            .map(function(value){
+                return parseInt(value);
+            });        
+        var sumTotal = 0;
+        for (var index = 0; index < binaryInputArray.length; index++){
+            var row = binaryToDecimalTable.rows[index+1] || binaryToDecimalTable.insertRow(-1); /*inserts row at last position*/
+            var operandCell = row.getElementsByClassName('operand')[0] || row.insertCell(-1);
+            operandCell.className='operand';
+            operandCell.innerHTML = binaryInputArray[index];
+            var operationCell = row.getElementsByClassName('operation')[0] || row.insertCell(-1);
+            operationCell.className='operation';
+            operationCell.innerHTML='*';
+            var baseAndPowerCell = row.getElementsByClassName('baseAndPower')[0] || row.insertCell(-1);
+            baseAndPowerCell.className='baseAndPower';
+            baseAndPowerCell.innerHTML='2 ^ ' + index;
+            var resultCell = row.getElementsByClassName('result')[0] || row.insertCell(-1);
+            resultCell.className='result';
+            resultCell.innerHTML = operandCell.innerHTML * Math.pow(2, index);
+            var sumTotalCell = row.getElementsByClassName('sumTotal')[0] || row.insertCell(-1);
+            sumTotalCell.className='sumTotal';
+            sumTotal = parseInt(resultCell.innerHTML) + sumTotal;
+            sumTotalCell.innerHTML = sumTotal;            
+        }
+        return sumTotal;
+    }
+</script>
+</html>
